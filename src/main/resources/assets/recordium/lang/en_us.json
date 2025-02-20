@@ -12,6 +12,8 @@
   "button.coords": "Paste Coords",
   "button.createnote": "Create Note",
   "button.opennote": "Open Note",
+  "button.nextpage": "Next",
+  "button.backpage": "Back",
   "notification.info": "Simple Notes - Info",
   "screen.recordium.editnote": "Edit Note",
   "screen.recordium.createnote": "Create Note",
@@ -25,5 +27,8 @@
   "toast.rename.duplicate": "Note \"%1$s\" already has that name, pick a different name!",
   "toast.save.success": "Note \"%1$s\" saved successfully",
   "toast.save.failure": "Note \"%1$s\" note saved, check logs",
-  "toast.save.duplicate": "The note you are trying to create already exists, try changing the name"
+  "toast.save.duplicate": "The note you are trying to create already exists, try changing the name",
+  "entry.lastmodified": "Modified: %1$s",
+  "entry.created": "Created: %1$s",
+  "entry.size": "Size: %1$s KB"
 }

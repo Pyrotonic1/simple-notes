@@ -25,7 +25,9 @@ public class RecordiumClient implements ClientModInitializer {
     public static final String COORDS_BUTTON = "button.coords";
     public static final String SAVE_BUTTON = "button.save";
     public static final String CREATE_NOTE_BUTTON = "button.createnote";
-    public static final String OPEN_NOTE_BUTTON= "button.opennote";
+    public static final String OPEN_NOTE_BUTTON = "button.opennote";
+    public static final String NEXT_PAGE_BUTTON = "button.nextpage";
+    public static final String BACK_PAGE_BUTTON = "button.backpage";
     public static final String KEY_CREATE_NOTE = "key.recordium.createnote";
     public static final String KEY_CATEGORY_SIMPLENOTES = "key.category.recordium.notes";
     public static final String KEY_OPEN_NOTE_SELECTOR = "key.recordium.noteselector";
@@ -40,6 +42,9 @@ public class RecordiumClient implements ClientModInitializer {
     public static final String TOAST_SAVE_SUCCESS = "toast.save.success";
     public static final String TOAST_SAVE_FAILURE = "toast.save.failure";
     public static final String TOAST_SAVE_DUPLICATE = "toast.save.duplicate";
+    public static final String ENTRY_LASTMODIFIED = "entry.lastmodified";
+    public static final String ENTRY_CREATED = "entry.created";
+    public static final String ENTRY_SIZE = "entry.size";
     public static final String NOTE_DIRECTORY_PATH = "recordium/notes/";
     public static final ButtonTextures MAIN_MENU_BUTTON_TEXTURE = new ButtonTextures(
         Identifier.of("recordium", "main_menu/unfocused"),
@@ -53,6 +58,10 @@ public class RecordiumClient implements ClientModInitializer {
     public static final ButtonTextures EDIT_BOX_TEXTURES = new ButtonTextures(
             Identifier.of( "recordium:widget/transparant_textfield"),
             Identifier.of("recordium:widget/transparant_textfield_highlighted")
+    );
+    public static final ButtonTextures NOTE_ENTRY_TEXTURES = new ButtonTextures(
+            Identifier.of("recordium:widget/note-entry/note_entry"),
+            Identifier.of("recordium:widget/note-entry/note_entry_highlighted")
     );
     @Override
     public void onInitializeClient() {

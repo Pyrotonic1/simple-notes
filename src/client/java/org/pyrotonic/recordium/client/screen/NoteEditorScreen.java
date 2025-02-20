@@ -12,10 +12,12 @@ import org.pyrotonic.recordium.client.RecordiumClient;
 import org.pyrotonic.recordium.client.component.*;
 import org.pyrotonic.recordium.client.exceptions.NoteNameNotSpecifiedException;
 
+import java.util.ArrayList;
+
 public class NoteEditorScreen extends Screen {
     // utils, used for rendering text and getting information about the client
-    private static final MinecraftClient client = MinecraftClient.getInstance();
-    private static final TextRenderer textRenderer = client.textRenderer;
+    private final MinecraftClient client = MinecraftClient.getInstance();
+    private final TextRenderer textRenderer = client.textRenderer;
 
     // components, each variable is a gui component on the screen itself
     private TransparantButtonWidget saveButton;
@@ -58,9 +60,7 @@ public class NoteEditorScreen extends Screen {
     // The components work in wonky ways if they are not initialized in their own method
     private void initComponents() {
         saveButton = new TransparantButtonWidget((width - 137) + 28, 41, 100, 20, Text.translatable(RecordiumClient.SAVE_BUTTON), button -> {
-            NoteDataHandler.saveContent(editBoxWidget.getText(), getFilename());
-
-            String[] filenames = NoteDataHandler.readFilenames();
+            ArrayList<String> filenames = NoteDataHandler.readFilenames();
             for (String filename : filenames) {
                 if (filename.replace(".txt", "").equals(nameField.getText())) {
                     doesFilenameExist = true;
@@ -68,6 +68,7 @@ public class NoteEditorScreen extends Screen {
                 }
                 doesFilenameExist = false;
             }
+            NoteDataHandler.saveContent(editBoxWidget.getText(), getFilename());
             if (doesFilenameExist) {
                 client.getToastManager().add(
                         SystemToast.create(client, SystemToast.Type.NARRATOR_TOGGLE, Text.translatable(RecordiumClient.TOAST_FAILURE), Text.translatable(RecordiumClient.TOAST_SAVE_DUPLICATE)));

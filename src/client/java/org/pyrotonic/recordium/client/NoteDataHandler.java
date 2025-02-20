@@ -7,24 +7,33 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 import org.apache.commons.io.FileUtils;
 import org.pyrotonic.recordium.Recordium;
 
 public class NoteDataHandler {
-    static String Content;
-    static String Filename;
+     private String content;
+     private String filename;
 
 
     public NoteDataHandler(String content, String filename) {
-        Content = content;
-        Filename = filename;
+        this.content = content;
+        this.filename = filename;
     }
 
 
     public String getFilename() {
-        return Filename;
+        return this.filename;
     }
 
     public static Boolean saveContent(String content, String filename) {
@@ -73,6 +82,9 @@ public class NoteDataHandler {
     }
 
     public static String readNote(String filename) {
+        if (!filename.contains(".txt")) {
+            filename = filename + ".txt";
+        }
         String data = "";
         try {
             data = new String(
@@ -83,9 +95,54 @@ public class NoteDataHandler {
         return data;
         }
 
-    public static String[] readFilenames() {
-        File Path = new File("simplenotes/notes/");
-        return Path.list();
+    public static ArrayList<String> readFilenames() {
+        File Path = new File("recordium/notes/");
+        String[] namesArray = Path.list();
+        assert namesArray != null;
+        return new ArrayList<>(Arrays.asList(namesArray));
         }
+
+    public String getLastModified() throws IOException {
+        String filename;
+        if (!this.filename.contains(".txt")) {
+            filename = this.filename + ".txt";
+        } else {
+            filename = this.filename;
+        }
+        Path path = Paths.get("recordium/notes/" + filename);
+        DateFormat dateFormat = new SimpleDateFormat();
+        FileTime fileTime = Files.getLastModifiedTime(path);
+
+        return dateFormat.format(fileTime.toMillis());
     }
+
+    public String getCreated() throws IOException {
+        String filename;
+        if (!this.filename.contains(".txt")) {
+            filename = this.filename + ".txt";
+        } else {
+            filename = this.filename;
+        }
+        Path path = Paths.get("recordium/notes/" + filename);
+        DateFormat dateFormat = new SimpleDateFormat();
+        BasicFileAttributes fileAttributes = Files.readAttributes(path.toRealPath(), BasicFileAttributes.class);
+
+        return dateFormat.format(fileAttributes.creationTime().toMillis());
+    }
+
+    public String getFileSize() throws IOException {
+        String filename;
+        if (!this.filename.contains(".txt")) {
+            filename = this.filename + ".txt";
+        } else {
+            filename = this.filename;
+        }
+        File file = new File("recordium/notes/" + filename);
+        long sizeInBytes = file.length();
+        double sizeInKB =  (double) sizeInBytes / 1024;
+        String formattedSize = (new DecimalFormat("#.##").format(sizeInKB));
+
+        return String.valueOf(formattedSize);
+    }
+}
 

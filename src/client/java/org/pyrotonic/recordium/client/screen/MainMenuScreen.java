@@ -11,7 +11,7 @@ import org.pyrotonic.recordium.client.component.TransparantButtonWidget;
 import org.pyrotonic.recordium.client.exceptions.NoteNameNotSpecifiedException;
 
 public class MainMenuScreen extends Screen {
-    private static final MinecraftClient client = MinecraftClient.getInstance();
+    private final MinecraftClient client = MinecraftClient.getInstance();
 
     Screen parent;
 
@@ -36,9 +36,7 @@ public class MainMenuScreen extends Screen {
             }
         });
 
-        openNote = new TransparantButtonWidget((width / 2 - 38), 160, 76, 20, Text.translatable(RecordiumClient.OPEN_NOTE_BUTTON), button -> {
-
-        });
+        openNote = new TransparantButtonWidget((width / 2 - 38), 160, 76, 20, Text.translatable(RecordiumClient.OPEN_NOTE_BUTTON), button -> client.setScreen(new NoteListScreen(this)));
 
         exit = new TransparantButtonWidget((width / 2 - 38), 190, 76, 20, Text.translatable(RecordiumClient.EXIT_BUTTON), button -> client.setScreen(parent));
     }
